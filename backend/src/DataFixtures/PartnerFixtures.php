@@ -6,7 +6,7 @@ use App\Entity\Partner;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class Partners extends Fixture
+class PartnerFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {

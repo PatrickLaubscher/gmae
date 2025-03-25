@@ -27,9 +27,6 @@ class Partner
     #[ORM\Column(length: 255)]
     private ?string $logo = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $url = null;
-
     /**
      * @var Collection<int, Service>
      */
@@ -78,18 +75,6 @@ class Partner
     public function setLogo(string $logo): static
     {
         $this->logo = $logo;
-
-        return $this;
-    }
-
-    public function getUrl(): ?string
-    {
-        return $this->url;
-    }
-
-    public function setUrl(string $url): static
-    {
-        $this->url = $url;
 
         return $this;
     }
