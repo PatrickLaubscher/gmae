@@ -33,6 +33,12 @@ class User
     #[ORM\ManyToMany(targetEntity: roles::class, inversedBy: 'users')]
     private Collection $roles;
 
+    #[ORM\Column(length: 255)]
+    private ?string $nom = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $prÃenom = null;
+
     public function __construct()
     {
         $this->roles = new ArrayCollection();
@@ -106,6 +112,30 @@ class User
     public function removeRole(roles $role): static
     {
         $this->roles->removeElement($role);
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): static
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getPrÃenom(): ?string
+    {
+        return $this->prÃenom;
+    }
+
+    public function setPrÃenom(string $prÃenom): static
+    {
+        $this->prÃenom = $prÃenom;
 
         return $this;
     }
