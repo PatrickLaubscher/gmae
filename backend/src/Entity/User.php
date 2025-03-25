@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ApiResource]
@@ -23,6 +25,17 @@ class User
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $secret_question = null;
+
+    /**
+     * @var Collection<int, roles>
+     */
+    #[ORM\ManyToMany(targetEntity: roles::class, inversedBy: 'users')]
+    private Collection $roles;
+
+    public function __construct()
+    {
+        $this->roles = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -68,6 +81,30 @@ class User
     public function setSecretQuestion(?string $secret_question): static
     {
         $this->secret_question = $secret_question;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, roles>
+     */
+    public function getRoles(): Collection
+    {
+        return $this->roles;
+    }
+
+    public function addRole(roles $role): static
+    {
+        if (!$this->roles->contains($role)) {
+            $this->roles->add($role);
+        }
+
+        return $this;
+    }
+
+    public function removeRole(roles $role): static
+    {
+        $this->roles->removeElement($role);
 
         return $this;
     }
