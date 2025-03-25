@@ -8,12 +8,12 @@
             (ngSubmit)="onSubmitLogin()"
             class="space-y-5">
             
-            <!-- Email -->
+            <!-- Pseudo -->
             <div>
                 <input
                     formControlName="pseudo"
-                    [class.border-2]="this.loginForm.get('pseudo').invalid && (this.loginForm.get('pseudo').dirty || this.loginForm.get('pseudo').touched)"
-                    [class.border-red-500]="this.loginForm.get('pseudo').invalid && (this.loginForm.get('pseudo').dirty || this.loginForm.get('pseudo').touched)"
+                    [class.border-2]="this.loginForm.get('pseudo')?.invalid && (this.loginForm.get('pseudo')?.dirty || this.loginForm.get('pseudo')?.touched)"
+                    [class.border-red-500]="this.loginForm.get('pseudo')?.invalid && (this.loginForm.get('pseudo')?.dirty || this.loginForm.get('pseudo')?.touched)"
                     id="pseudo" type="pseudo" placeholder="Pseudo"
                     class="bg-gray-100 border border-gray-300 text-dark-blue text-sm placeholder-dark-blue rounded-lg block w-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-light-blue">
             </div>
@@ -22,8 +22,8 @@
             <div class="relative">
                 <input
                     formControlName="password"
-                    [class.border-2]="this.loginForm.get('password').invalid && (this.loginForm.get('password').dirty || this.loginForm.get('password').touched)"
-                    [class.border-red-500]="this.loginForm.get('password').invalid && (this.loginForm.get('password').dirty || this.loginForm.get('password').touched)"
+                    [class.border-2]="this.loginForm.get('password')?.invalid && (this.loginForm.get('password')?.dirty || this.loginForm.get('password')?.touched)"
+                    [class.border-red-500]="this.loginForm.get('password')?.invalid && (this.loginForm.get('password')?.dirty || this.loginForm.get('password')?.touched)"
                     class="bg-gray-100 border border-gray-300 text-dark-blue text-sm placeholder-dark-blue rounded-lg block w-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-light-blue"
                     id="password" type="password" placeholder="Mot de passe">
             </div>
