@@ -10,12 +10,13 @@ class Category extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $service= new Service();
+        $service = new Service();
         $service->setName('Mutuelle');
-        
-        $service2=new Service();
+        $manager->persist($service);
+
+        $service2 = new Service();
         $service2->setName('Assurance');
-        $manager->persist($service,$service2);
+        $manager->persist($service2);
         $manager->flush();
     }
 }

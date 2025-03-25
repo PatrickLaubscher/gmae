@@ -21,7 +21,7 @@ class Partners extends Fixture
         $partner->setLogo("ALLIA.png");
         $manager->persist($partner);
 
-        $partner2= new Partner();
+        $partner2 = new Partner();
         $partner2->setName('Les mutualistes');
         $partner2->setDescription("LES + MUTUALISTES finance la solidarité nationale.
                     Nous appliquons le principe édifié par la Sécurité sociale française en 1945 : permettre à chacun de bénéficier d’une protection sociale.
@@ -36,7 +36,7 @@ class Partners extends Fixture
         $partner2->setLogo("les-mutualistes.png");
         $manager->persist($partner2);
 
-        $partner3 =new Partner();
+        $partner3 = new Partner();
         $partner3->setName('OCAR');
         $partner3->setDescription("OCAR est une compagnie d’assurance qui est présente sur tout le territoire.
                     Nous proposons est une solution clé en main et une mise en place entièrement gratuite allant d’un simple lien tracké à une intégration totale dans votre parcours de vente.
@@ -45,7 +45,7 @@ class Partners extends Fixture
         $partner3->setLogo("OCAR.png");
         $manager->persist($partner3);
 
-        $partner4 =new Partner();
+        $partner4 = new Partner();
         $partner4->setName('Assurisk');
         $partner4->setDescription("Être bien couvert, votre objectif et notre mission.
                     ASSURISK est le leader français de l’assurance en ligne.
