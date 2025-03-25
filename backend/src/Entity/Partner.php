@@ -21,6 +21,7 @@ class Partner
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[ApiFilter(SearchFilter::class, properties: ['name' => 'ipartial'])]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT)]
