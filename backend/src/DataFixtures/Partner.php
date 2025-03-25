@@ -19,6 +19,7 @@ class Partners extends Fixture
                 De plus, ALLIA s'engage activement dans des initiatives de responsabilité sociale, contribuant ainsi au développement durable et au bien-être des communautés locales. Cet engagement renforce la réputation de l'entreprise en tant que leader responsable et fiable dans le secteur de l'assurance.
                 En conclusion, ALLIA se positionne comme un partenaire de confiance pour les entreprises, offrant une expertise inégalée et un service client exceptionnel, afin de les aider à naviguer sereinement dans un environnement en constante évolution.");
         $partner->setLogo("ALLIA.png");
+        $manager->persist($partner);
 
         $partner2= new Partner();
         $partner2->setName('Les mutualistes');
@@ -33,6 +34,7 @@ class Partners extends Fixture
                 -	Sociale : nous garantissons la fiabilité des données sociales ;
                 -	Économique : nous apportons une contribution aux activités économiques");
         $partner2->setLogo("les-mutualistes.png");
+        $manager->persist($partner2);
 
         $partner3 =new Partner();
         $partner3->setName('OCAR');
@@ -41,6 +43,7 @@ class Partners extends Fixture
                     Bénéficiez d’un espace dédié pour suivre à tout moment le nombre de devis effectués, de contrats souscrits et votre rémunération en cours. Le reste, c’est pour nous. On s’occupe de toute la gestion du contrat : de la résiliation chez l’ancien assureur à la gestion des sinistres en cas de pépin.
                     Une rémunération qui s’adapte à vous. Recevez une commission fixe ou un pourcentage en fonction du nombre de devis effectués ou de contrats souscrits.");
         $partner3->setLogo("OCAR.png");
+        $manager->persist($partner3);
 
         $partner4 =new Partner();
         $partner4->setName('Assurisk');
@@ -57,8 +60,7 @@ class Partners extends Fixture
                     de notre Groupe. Une prise en charge 24h/24, 7 jours/7 qui s’appuie sur la performance
                     du 1er groupe mondial d’assurance.");
         $partner4->setLogo("ASSURISK.png");
-
-        $manager->persist($partner,$partner2,$partner3,$partner4);
+        $manager->persist($partner4);
 
         $manager->flush();
     }
