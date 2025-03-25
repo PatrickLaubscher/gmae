@@ -34,11 +34,11 @@ class Partner
      * @var Collection<int, Service>
      */
     #[ORM\ManyToMany(targetEntity: Service::class, inversedBy: 'partners')]
-    private Collection $services;
+    private Collection $categories;
 
     public function __construct()
     {
-        $this->services = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -97,23 +97,23 @@ class Partner
     /**
      * @return Collection<int, Service>
      */
-    public function getServices(): Collection
+    public function getCategories(): Collection
     {
-        return $this->services;
+        return $this->categories;
     }
 
-    public function addService(Service $service): static
+    public function addCategory(Service $category): static
     {
-        if (!$this->services->contains($service)) {
-            $this->services->add($service);
+        if (!$this->categories->contains($category)) {
+            $this->categories->add($category);
         }
 
         return $this;
     }
 
-    public function removeService(Service $service): static
+    public function removeCategory(Service $category): static
     {
-        $this->services->removeElement($service);
+        $this->categories->removeElement($category);
 
         return $this;
     }
