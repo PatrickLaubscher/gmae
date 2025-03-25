@@ -9,6 +9,15 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
+        login:
+            pattern: ^/api/login
+            stateless: true
+            json_login:
+                username_path: email
+                password_path: hash_password
+                check_path: app_login
+
         main:
             lazy: true
             provider: users_in_memory

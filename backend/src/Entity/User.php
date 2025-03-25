@@ -6,12 +6,15 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ApiResource]
+
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
-class User
+#[ApiResource]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -32,6 +35,12 @@ class User
      */
     #[ORM\ManyToMany(targetEntity: roles::class, inversedBy: 'users')]
     private Collection $roles;
+
+    #[ORM\Column(length: 255)]
+    private ?string $nom = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $prÃenom = null;
 
     public function __construct()
     {
@@ -108,5 +117,42 @@ class User
         $this->roles->removeElement($role);
 
         return $this;
+    }
+
+<<<<<<< Updated upstream
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): static
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getPrÃenom(): ?string
+    {
+        return $this->prÃenom;
+    }
+
+    public function setPrÃenom(string $prÃenom): static
+    {
+        $this->prÃenom = $prÃenom;
+
+        return $this;
+=======
+    public function getPassword(): string
+    {
+        return $this->getHashPassword();
+    }
+
+    public function eraseCredentials() {}
+
+    public function getUserIdentifier(): string
+    {
+        return $this->email;
+>>>>>>> Stashed changes
     }
 }

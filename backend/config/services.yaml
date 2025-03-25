@@ -10,6 +10,13 @@ services:
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+    
+    acme_api.event.hash_user_password_listener:
+        class: App\EventListener\HashUserPasswordListener
+        arguments:
+            $hasher: "@security.password_hasher"
+        tags:
+        - { name: "doctrine.event_listener", event: "prePersist" }
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
