@@ -1,1 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 @import "tailwindcss";
+
+@theme {
+  --font-inria: "Inria", serif;
+  --font-lato: "Lato", sans-serif;
+
+  --color-rosered: #C42256;
+  --color-midnightgreen: #005F73;
+}
+
+@layer components {
+  .typography {
+    p {
+      font-size: var(--text-base);
+      color: var(--color-black-700);
+    }
+    h1 {
+      font-size: var(--text-2xl);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-black-700);
+    }
+    h2 {
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-black-700);
+    }
+  }
+}
