@@ -1,1 +1,51 @@
-<p>login works!</p>
+<div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+    <div class=" relative bg-white p-6 md:p-8 rounded-xl shadow-xl w-96">
+        <!-- Titre -->
+        <h2 class="font-sans text-3xl font-semibold uppercase text-center text-dark-blue mb-6">Connectez-vous à votre espace</h2>
+
+        <form 
+            [formGroup]="loginForm"
+            (ngSubmit)="onSubmitLogin()"
+            class="space-y-5">
+            
+            <!-- Email -->
+            <div>
+                <input
+                    formControlName="pseudo"
+                    [class.border-2]="this.loginForm.get('pseudo').invalid && (this.loginForm.get('pseudo').dirty || this.loginForm.get('pseudo').touched)"
+                    [class.border-red-500]="this.loginForm.get('pseudo').invalid && (this.loginForm.get('pseudo').dirty || this.loginForm.get('pseudo').touched)"
+                    id="pseudo" type="pseudo" placeholder="Pseudo"
+                    class="bg-gray-100 border border-gray-300 text-dark-blue text-sm placeholder-dark-blue rounded-lg block w-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-light-blue">
+            </div>
+
+            <!-- Mot de passe -->
+            <div class="relative">
+                <input
+                    formControlName="password"
+                    [class.border-2]="this.loginForm.get('password').invalid && (this.loginForm.get('password').dirty || this.loginForm.get('password').touched)"
+                    [class.border-red-500]="this.loginForm.get('password').invalid && (this.loginForm.get('password').dirty || this.loginForm.get('password').touched)"
+                    class="bg-gray-100 border border-gray-300 text-dark-blue text-sm placeholder-dark-blue rounded-lg block w-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-light-blue"
+                    id="password" type="password" placeholder="Mot de passe">
+            </div>
+
+            <!-- Message d'erreur -->
+            <div *ngIf="errMsg" class="mb-4 p-4 text-sm text-red-700 bg-red-100 border border-red-400 rounded">
+                {{ errMsg }}
+            </div>
+
+            <!-- Bouton de connexion -->
+            <button
+                class="w-full py-3 text-md font-semibold rounded-lg bg-dark-blue text-white shadow-md hover:bg-light-blue transition"
+                type="submit"
+                [disabled]="this.loginForm.invalid">
+                Se connecter
+            </button>
+
+            <!-- Lien vers l'inscription -->
+            <p class="text-sm text-center text-gray-900">
+                Mot de passe oublié ? 
+            </p>
+        </form>
+    </div>
+</div>
+
