@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\PartnerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -31,11 +33,12 @@ class Partner
      * @var Collection<int, Service>
      */
     #[ORM\ManyToMany(targetEntity: Service::class, inversedBy: 'partners')]
-    private Collection $categories;
+    #[ApiFilter(SearchFilter::class, properties: ['services.name' => 'ipartial'])]
+    private Collection $services;
 
     public function __construct()
     {
-        $this->categories = new ArrayCollection();
+        $this->services = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -82,23 +85,23 @@ class Partner
     /**
      * @return Collection<int, Service>
      */
-    public function getCategories(): Collection
+    public function getServices(): Collection
     {
-        return $this->categories;
+        return $this->services;
     }
 
-    public function addCategory(Service $category): static
+    public function addService(Service $service): static
     {
-        if (!$this->categories->contains($category)) {
-            $this->categories->add($category);
+        if (!$this->services->contains($service)) {
+            $this->services->add($service);
         }
 
         return $this;
     }
 
-    public function removeCategory(Service $category): static
+    public function removeService(Service $service): static
     {
-        $this->categories->removeElement($category);
+        $this->services->removeElement($service);
 
         return $this;
     }
