@@ -52,10 +52,9 @@ img {
 
 .btn-primary{
 color:white;
-padding: 10px 30px;
-
+padding: 10px 40px;
 background-color: var(--color-rouge-foncee);
-border-radius: 15px;
+border-radius: 20px;
 }
 
 .btn-primary:hover{
