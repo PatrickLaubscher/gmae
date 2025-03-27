@@ -23,7 +23,7 @@ export class LoginComponent {
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      email: new FormControl('',[   //Valeur rentrée pr éviter de retaper à chaque fois (enlever en prod)
+      pseudo: new FormControl('',[   //Valeur rentrée pr éviter de retaper à chaque fois (enlever en prod)
         Validators.required,
         Validators.minLength(3),
       ]),
@@ -41,11 +41,11 @@ export class LoginComponent {
     }
 
     // Récupérer les valeurs du formulaire
-    const { email, password } = this.loginForm.value;
+    const { pseudo, password } = this.loginForm.value;
 
     try {
       // Appeler le service AuthService pour authentifier
-      this.authService.login(email, password).subscribe({
+      this.authService.login(pseudo, password).subscribe({
         next: () => {
           // Si l'authentification réussit, rediriger vers "home"
           this.routeur.navigate(['/home']);
@@ -53,7 +53,7 @@ export class LoginComponent {
         error: (err) => {
           console.error('Erreur de login : ', err);
           // Affichez un message d'erreur à l'utilisateur
-          this.errMsg = 'Email ou mot de passe incorrect.';
+          this.errMsg = 'Pseudo ou mot de passe incorrect.';
         }
       });
     } catch {

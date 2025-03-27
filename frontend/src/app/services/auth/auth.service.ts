@@ -13,8 +13,8 @@ export class AuthService {
   /**
  * Vérifie si l'utilisateur est connecté
  **/
-  login(email: string, password: string): Observable<any> {
-    const payload = { email, password };
+  login(pseudo: string, password: string): Observable<any> {
+    const payload = { pseudo, password };
 
     // Appel à l'API d'authentification
     return this.http.post('http://127.0.0.1:8000/api/login_check', payload).pipe(
