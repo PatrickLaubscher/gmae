@@ -2,13 +2,20 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private readonly http = inject(HttpClient);
+  private readonly router = inject(Router);
+  private inactivityTimeout = 3 * 60 * 1000;
+  private lastActivityKey = 'last_activity';
 
+  constructor() {
+    this.initActivityTracking();
+  }
 
   /**
  * Vérifie si l'utilisateur est connecté
@@ -35,5 +42,47 @@ export class AuthService {
    */
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
+  }
+
+  private initActivityTracking() {
+    // Ecoute si les touches sont utiliées
+    ['mousedown', 'keydown', 'scroll', 'touchstart'].forEach(event => {
+      window.addEventListener(event, () => this.resetInactivityTimer());
+    });
+
+    
+    setInterval(() => {
+      this.checkInactivity();
+    }, 60000); 
+  }
+
+ 
+  private resetInactivityTimer() {
+    localStorage.setItem(this.lastActivityKey, Date.now().toString());
+  }
+
+  
+  private checkInactivity() {
+    const token = localStorage.getItem('token');
+    const lastActivity = localStorage.getItem(this.lastActivityKey);
+
+    if (!token || !lastActivity) {
+      this.logout();
+      return;
+    }
+
+    const currentTime = Date.now();
+    const lastActivityTime = parseInt(lastActivity, 10);
+
+    if (currentTime - lastActivityTime > this.inactivityTimeout) {
+      this.logout();
+    }
+  }
+
+  
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem(this.lastActivityKey);
+    this.router.navigate(['/login']);
   }
 }
