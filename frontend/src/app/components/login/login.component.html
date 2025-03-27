@@ -11,10 +11,10 @@
             <!-- Pseudo -->
             <div>
                 <input
-                    formControlName="pseudo"
-                    [class.border-2]="this.loginForm.get('pseudo')?.invalid && (this.loginForm.get('pseudo')?.dirty || this.loginForm.get('pseudo')?.touched)"
-                    [class.border-red-500]="this.loginForm.get('pseudo')?.invalid && (this.loginForm.get('pseudo')?.dirty || this.loginForm.get('pseudo')?.touched)"
-                    id="pseudo" type="pseudo" placeholder="Pseudo"
+                    formControlName="email"
+                    [class.border-2]="this.loginForm.get('email')?.invalid && (this.loginForm.get('email')?.dirty || this.loginForm.get('email')?.touched)"
+                    [class.border-red-500]="this.loginForm.get('email')?.invalid && (this.loginForm.get('email')?.dirty || this.loginForm.get('pseudo')?.touched)"
+                    id="email" type="email" placeholder="Email"
                     class="bg-gray-100 border border-gray-300 text-dark-blue text-sm placeholder-dark-blue rounded-lg block w-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-light-blue">
             </div>
 

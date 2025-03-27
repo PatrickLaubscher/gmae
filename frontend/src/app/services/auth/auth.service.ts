@@ -9,14 +9,15 @@ import { catchError, map } from 'rxjs/operators';
 export class AuthService {
   private readonly http = inject(HttpClient);
 
+
   /**
  * Vérifie si l'utilisateur est connecté
  **/
-  login(pseudo: string, password: string): Observable<any> {
-    const payload = { pseudo, password };
+  login(email: string, password: string): Observable<any> {
+    const payload = { email, password };
 
     // Appel à l'API d'authentification
-    return this.http.post('/api/login', payload).pipe(
+    return this.http.post('http://127.0.0.1:8000/api/login_check', payload).pipe(
       map((response: any) => {
         // Enregistre le token ds LocalStorage en cas de succès
         localStorage.setItem('token', response.token);

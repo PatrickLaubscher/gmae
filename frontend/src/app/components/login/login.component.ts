@@ -4,11 +4,12 @@ import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 
+
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
-    FormsModule, ReactiveFormsModule, NgIf,
+    FormsModule, ReactiveFormsModule, NgIf
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
@@ -22,13 +23,13 @@ export class LoginComponent {
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
-      pseudo: new FormControl('',[   //Valeur rentrée pr éviter de retaper à chaque fois (enlever en prod)
+      email: new FormControl('',[   //Valeur rentrée pr éviter de retaper à chaque fois (enlever en prod)
         Validators.required,
         Validators.minLength(3),
       ]),
       password: new FormControl('', [       //Valeur rentrée pr éviter de retaper à chaque fois (enlever en prod)
         Validators.required,
-        Validators.minLength(8)
+        Validators.minLength(5)
       ]),
     })
   }
@@ -40,11 +41,11 @@ export class LoginComponent {
     }
 
     // Récupérer les valeurs du formulaire
-    const { pseudo, password } = this.loginForm.value;
+    const { email, password } = this.loginForm.value;
 
     try {
       // Appeler le service AuthService pour authentifier
-      this.authService.login(pseudo, password).subscribe({
+      this.authService.login(email, password).subscribe({
         next: () => {
           // Si l'authentification réussit, rediriger vers "home"
           this.routeur.navigate(['/home']);
