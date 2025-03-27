@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../environments/environments';
 import {Partner} from './entities';
@@ -32,5 +32,27 @@ export class PartnersService {
 
   deletePartner(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
+
+  getFilteredPartners(filter: {
+    page?: number;
+    name?: string;
+    servicesName?: string;
+  }): Observable<Partner[]> {
+    let params = new HttpParams();
+
+    if (filter.page !== undefined) {
+      params = params.set('page', filter.page.toString());
+    }
+
+    if (filter.name) {
+      params = params.set('name', filter.name);
+    }
+
+    if (filter.servicesName) {
+      params = params.set('services.name', filter.servicesName);
+    }
+
+    return this.http.get<Partner[]>(this.baseUrl, { params });
   }
 }
