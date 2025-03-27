@@ -5,28 +5,40 @@ namespace App\Entity;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
 use App\Repository\PartnerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ApiResource]
+#[ApiResource(
+    operations: [
+        new GetCollection(),
+        ],
+    normalizationContext: ['groups' => ['partners:read']],
+    )]
+
 #[ORM\Entity(repositoryClass: PartnerRepository::class)]
 class Partner
 {
+    #[Groups(['partners:read'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['partners:read'])]
     #[ORM\Column(length: 255)]
     #[ApiFilter(SearchFilter::class, properties: ['name' => 'ipartial'])]
     private ?string $name = null;
 
+    #[Groups(['partners:read'])]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
+    #[Groups(['partners:read'])]
     #[ORM\Column(length: 255)]
     private ?string $logo = null;
 
