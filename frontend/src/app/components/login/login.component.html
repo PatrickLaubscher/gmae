@@ -1,0 +1,64 @@
+<div class="flex flex-col justify-center items-center h-screen w-full p-4">
+    <!-- Titre -->
+    <div class="mb-6 mt-14 text-center">
+        <h2 class="title text-2xl md:text-3xl font-semibold uppercase">Connectez-vous à votre espace</h2>
+    </div>
+
+    <div class="flex flex-col md:flex-row justify-center items-center md:p-6 md:gap-8 w-full">
+        
+        <div class="flex justify-center md:justify-start">
+            <img src="images/imagelogin.png" alt="Points rouges" class="w-48 h-48 md:w-64 md:h-64 object-cover rounded-lg">
+        </div>
+
+        <form 
+            [formGroup]="loginForm"
+            (ngSubmit)="onSubmitLogin()"
+            class="w-100 space-y-5 shadow p-8 m-4 rounded-lg">
+            
+            <!-- Pseudo -->
+            <div>
+                <!-- Label pour l'input -->
+                <label for="pseudo" class="font-text font-semibold mb-1 block">Utilisateur</label>
+                <input
+                    formControlName="pseudo"
+                    [class.border-2]="this.loginForm.get('pseudo')?.invalid && (this.loginForm.get('pseudo')?.dirty || this.loginForm.get('pseudo')?.touched)"
+                    [class.border-red-500]="this.loginForm.get('pseudo')?.invalid && (this.loginForm.get('pseudo')?.dirty || this.loginForm.get('pseudo')?.touched)"
+                    id="pseudo" type="pseudo" placeholder="Veuillez entrer votre nom d'utilisateur"
+                    class="bg-gray-100 border border-gray-300 text-dark-blue text-sm placeholder-dark-blue rounded-lg block w-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-light-blue">
+            </div>
+
+            <!-- Mot de passe -->
+            <div>
+                <!-- Label pour l'input -->
+                <label for="password" class="font-text font-semibold mb-1 block">Mot de passe</label>
+                <input
+                    formControlName="password"
+                    [class.border-2]="this.loginForm.get('password')?.invalid && (this.loginForm.get('password')?.dirty || this.loginForm.get('password')?.touched)"
+                    [class.border-red-500]="this.loginForm.get('password')?.invalid && (this.loginForm.get('password')?.dirty || this.loginForm.get('password')?.touched)"
+                    class="bg-gray-100 border border-gray-300 text-dark-blue text-sm placeholder-dark-blue rounded-lg block w-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-light-blue"
+                    id="password" type="password" placeholder="Veuillez saisir votre mot de passe">
+            </div>
+
+            <!-- Message d'erreur -->
+            <div *ngIf="errMsg" class="mb-4 p-4 text-sm text-red-700 bg-red-100 border border-red-400 rounded">
+                {{ errMsg }}
+            </div>
+
+            <!-- Bouton de connexion -->
+            <button
+                class="w-full py-3 font-text text-md font-semibold rounded-2xl bg-rouge-foncee text-white shadow-md hover:bg-rouge-foncee/80 focus:outline-none active:bg-rouge-foncee/80" 
+                type="submit"
+                [disabled]="this.loginForm.invalid">
+                Se connecter
+            </button>
+
+            <!-- Lien vers l'inscription -->
+            <p class="text-center font-text text-rouge-foncee text-md">
+                Mot de passe oublié ? 
+            </p>
+        </form>
+    </div>
+</div>
+
+
+
