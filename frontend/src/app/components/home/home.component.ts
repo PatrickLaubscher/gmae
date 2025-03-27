@@ -1,34 +1,41 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { PartnersService } from '../../services/partners.service';
+import { Partner } from '../../services/entities';
 
 @Component({
   selector: 'app-home',
+  standalone:true,
   imports: [CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
 
-  partenaires = [
-    {
-      "name": "OCAR",
-      "picture": "/images/OCAR.png",
-      "description": "OCAR, votre partenaire assurance de confiance sur tout le territoire. Nous proposons des solutions d'assurance auto, habitation et santé personnalisées, avec une mise en place gratuite et une intégration complète à votre parcours de vente. Découvrez nos offres avantageuses dès maintenant !"
-    },
-    {
-      "name": "Allia",
-      "picture": "/images/ALLIA.png",
-      "description": "ASSURISK est le leader français de l’assurance en ligne.Nous vous proposons l’offre et les options qui vous correspondent le mieux,soit en ligne, soit avec l’un de nos conseillers au téléphone."
-    },
-    {
-      "name": "Assurisk",
-      "picture": "/images/ASSURISK.png",
-      "description": "LES + MUTUALISTES finance la solidarité nationale.Nous appliquons le principe édifié par la Sécurité sociale française en 1945 :permettre à chacun de bénéficier d’une protection sociale."
-    },
-    {
-      "name": "Les mutualistes",
-      "picture": "/images/les-mutualistes.png",
-      "description": "ALLIA accompagne les entreprises dans leurs démarches en termes d’assurance. Cettesociété se spécialise dans la fourniture de solutions d'assurance sur mesure, adaptées auxbesoins spécifiques de chaque entreprise, qu'elle soit une petite start-up ou une grande multinationale."
-    },
-  ]
+  partners:Partner[]= [];
+  partnersService = inject(PartnersService);
+  searchTerm='';
+  results!:Partner[]
+
+  ngOnInit(): void {
+    this.getPartners();
+      
+  }
+
+  getPartners() {
+    this.partnersService.getAll().subscribe({
+      next: (partners) => {
+        this.partners = partners;
+      },
+      error: (error) => {
+        console.error('ERROR', error);
+      }
+    });
+  }
+
+  // search(){
+  //   this.partnersService.getFilteredPartners(this.searchTerm).subscribe(result=>{
+  //     this.partners = result ;
+  //   })
+  // }
 }
