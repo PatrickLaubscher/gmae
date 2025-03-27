@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../environments/environments';
 import {HttpClient} from '@angular/common/http';
-import {Observable, map} from 'rxjs';
+import {Observable} from 'rxjs';
 import {Service} from './entities';
-import {HydraCollection, HydraItem} from './hydra';
 
 @Injectable({
   providedIn: 'root'
@@ -15,36 +14,19 @@ export class ServicesService {
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<Service[]> {
-    return this.http.get<HydraCollection<Service>>(this.baseUrl).pipe(
-      map(response => response['hydra:member'])
-    );
+    return this.http.get<Service[]>(this.baseUrl);
   }
 
   getService(id: number): Observable<Service> {
-    return this.http.get<HydraItem<Service>>(`${this.baseUrl}/${id}`).pipe(
-      map(response => {
-        const { '@id': _, '@type': __, ...service } = response;
-        return service;
-      })
-    );
+    return this.http.get<Service>(`${this.baseUrl}/${id}`);
   }
 
   createService(serviceData: Service): Observable<Service> {
-    return this.http.post<HydraItem<Service>>(this.baseUrl, serviceData).pipe(
-      map(response => {
-        const { '@id': _, '@type': __, ...service } = response;
-        return service;
-      })
-    );
+    return this.http.post<Service>(this.baseUrl, serviceData);
   }
 
   updateService(id: number, serviceData: Service): Observable<Service> {
-    return this.http.put<HydraItem<Service>>(`${this.baseUrl}/${id}`, serviceData).pipe(
-      map(response => {
-        const { '@id': _, '@type': __, ...service } = response;
-        return service;
-      })
-    );
+    return this.http.put<Service>(`${this.baseUrl}/${id}`, serviceData);
   }
 
   deleteService(id: number): Observable<void> {
