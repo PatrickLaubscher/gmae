@@ -16,11 +16,11 @@
   <!-- Cards partenaires -->
   <div *ngFor="let partner of partners" class="border p-[12px] rounded-[16px] mb-5">
     <div  class="flex flex-col md:flex-row justify-center">
-      <img [src]="partner.logo" alt="{{partner.name}}" class=" md:h-[120px] md:w-[280px] p-5 md:p-0">
+      <img [src]= "'http://localhost:8000/images/'+ partner.logo" alt="" class=" md:h-[120px] md:w-[280px] p-5 md:p-0">
       <div class="flex flex-col">
         <div class="px-[12px] pb-5 ">
           <h3 class="font-bold">{{partner.name}}</h3>
-          <p>{{partner.description}}</p>
+          <p>{{partner.description }}</p>
         </div>
        
         <div class="flex justify-end items-center  mt-5">

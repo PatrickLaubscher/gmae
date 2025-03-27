@@ -12,29 +12,26 @@ import { Partner } from '../../services/entities';
 })
 export class HomeComponent implements OnInit{
 
-  partners:Partner[]= [];
+  partners:any[]= [];
+  apiResponse:any;
   partnersService = inject(PartnersService);
-  searchTerm='';
-  results!:Partner[]
+  
 
   ngOnInit(): void {
     this.getPartners();
       
   }
 
-  getPartners() {
-    this.partnersService.getAll().subscribe({
-      next: (partners) => {
-        this.partners = partners;
-      },
-      error: (error) => {
-        console.error('ERROR', error);
-      }
-    });
+  getPartners(){
+    this.partnersService.getAll().subscribe(data=>{
+      console.log(data);
+      this.apiResponse = data;
+      this.partners = this.apiResponse.member;
+    })
   }
 
   // search(){
-  //   this.partnersService.getFilteredPartners(this.searchTerm).subscribe(result=>{
+  //   this.partnersService.getFilteredPartners().subscribe(result=>{
   //     this.partners = result ;
   //   })
   // }
