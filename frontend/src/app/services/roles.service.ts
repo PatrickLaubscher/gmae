@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import {environment} from '../environments/environments';
 import {HttpClient} from '@angular/common/http';
-import {Observable, map} from 'rxjs';
+import {Observable} from 'rxjs';
 import {Role} from './entities';
-import {HydraCollection, HydraItem} from './hydra';
 
 @Injectable({
   providedIn: 'root'
@@ -15,36 +14,19 @@ export class RolesService {
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<Role[]> {
-    return this.http.get<HydraCollection<Role>>(this.baseUrl).pipe(
-      map(response => response['hydra:member'])
-    );
+    return this.http.get<Role[]>(this.baseUrl);
   }
 
   getRole(id: number): Observable<Role> {
-    return this.http.get<HydraItem<Role>>(`${this.baseUrl}/${id}`).pipe(
-      map(response => {
-        const { '@id': _, '@type': __, ...role } = response;
-        return role;
-      })
-    );
+    return this.http.get<Role>(`${this.baseUrl}/${id}`);
   }
 
   createRole(roleData: Role): Observable<Role> {
-    return this.http.post<HydraItem<Role>>(this.baseUrl, roleData).pipe(
-      map(response => {
-        const { '@id': _, '@type': __, ...role } = response;
-        return role;
-      })
-    );
+    return this.http.post<Role>(this.baseUrl, roleData);
   }
 
   updateRole(id: number, roleData: Role): Observable<Role> {
-    return this.http.put<HydraItem<Role>>(`${this.baseUrl}/${id}`, roleData).pipe(
-      map(response => {
-        const { '@id': _, '@type': __, ...role } = response;
-        return role;
-      })
-    );
+    return this.http.put<Role>(`${this.baseUrl}/${id}`, roleData);
   }
 
   deleteRole(id: number): Observable<void> {
