@@ -6,7 +6,7 @@
   </div>
   <!-- Barre de recherche et select de filtrage -->
   <div class="flex space-x-2  mb-20">
-    <input type="text" placeholder="Rechercher" class="border rounded-lg px-2 h-[50px] w-[350px]">
+    <input [(ngModel)]="searchTerm" (input)="searchPartners()" type="text" placeholder="Rechercher" class="border rounded-lg px-2 h-[50px] w-[350px]">
     <select class="form-select" aria-label="Exemple select" class="border rounded-lg px-2 h-[50px] w-[350px]">
       <option selected>Catégories</option>
       <option value="1">Mutuelle</option>
