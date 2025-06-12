@@ -1,1 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 @import "tailwindcss";
+
+*{ 
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-text);
+  font-optical-sizing: auto;
+}
+
+@theme{
+  --font-title: "Inria", sans-serif;
+  --font-text: "Lato", sans-serif;
+  --color-vert-foncee: #005f73;
+  --color-rouge-foncee: #c42256;
+}
+
+h1{
+  font-family: var(--font-title);
+  font-size: 36px;
+  margin: 0;
+}
+h2{
+  font-family: var(--font-title);
+  font-size: 32px;
+  margin: 0;
+}
+h3{
+  font-family: var(--font-title);
+  font-size: 26px;
+  margin: 0;
+}
+h4{
+  font-family: var(--font-title);
+  font-size: 20px;
+  margin: 0;
+}
+
+
+ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+.btn-primary{
+color:white;
+padding: 10px 40px;
+background-color: var(--color-rouge-foncee);
+border-radius: 20px;
+}
+
+.btn-primary:hover{
+  background-color: var(--color-rouge-foncee);
+  opacity: 0.8;
+}
+
+
+.btn-primary:active{
+  background-color: var(--color-vert-foncee);
+  transform: translateY(4px);
+}
+
+
+

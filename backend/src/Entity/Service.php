@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ServiceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ApiResource]
@@ -21,17 +22,10 @@ class Service
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(type: Types::TEXT)]
-    private ?string $description = null;
-
-    #[ORM\ManyToOne(inversedBy: 'services')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Category $categories = null;
-
     /**
      * @var Collection<int, Partner>
      */
-    #[ORM\ManyToMany(targetEntity: Partner::class, mappedBy: 'services')]
+    #[ORM\ManyToMany(targetEntity: Partner::class, mappedBy: 'categories')]
     private Collection $partners;
 
     public function __construct()
@@ -56,30 +50,6 @@ class Service
         return $this;
     }
 
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(string $description): static
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    public function getCategories(): ?Category
-    {
-        return $this->categories;
-    }
-
-    public function setCategories(?Category $categories): static
-    {
-        $this->categories = $categories;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Partner>
      */
@@ -92,7 +62,7 @@ class Service
     {
         if (!$this->partners->contains($partner)) {
             $this->partners->add($partner);
-            $partner->addService($this);
+            $partner->addCategory($this);
         }
 
         return $this;
@@ -101,7 +71,7 @@ class Service
     public function removePartner(Partner $partner): static
     {
         if ($this->partners->removeElement($partner)) {
-            $partner->removeService($this);
+            $partner->removeCategory($this);
         }
 
         return $this;

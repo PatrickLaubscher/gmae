@@ -6,12 +6,15 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ApiResource]
+
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
-class User
+#[ApiResource]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -28,16 +31,16 @@ class User
     private ?string $secret_question = null;
 
     /**
-     * @var Collection<int, roles>
+     * @var Collection<int, Roles>
      */
-    #[ORM\ManyToMany(targetEntity: roles::class, inversedBy: 'users')]
+    #[ORM\ManyToMany(targetEntity: Roles::class, inversedBy: 'users')]
     private Collection $roles;
 
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $pr√enom = null;
+    private ?string $prenom = null;
 
     public function __construct()
     {
@@ -93,14 +96,16 @@ class User
     }
 
     /**
-     * @return Collection<int, roles>
+     * @return Collection<int, Roles>
      */
-    public function getRoles(): Collection
+    public function getRoles(): array
     {
-        return $this->roles;
+        return array_map(function($role) {
+            return $role->getName(); 
+        }, $this->roles->toArray());
     }
 
-    public function addRole(roles $role): static
+    public function addRole(Roles $role): static
     {
         if (!$this->roles->contains($role)) {
             $this->roles->add($role);
@@ -109,7 +114,7 @@ class User
         return $this;
     }
 
-    public function removeRole(roles $role): static
+    public function removeRole(Roles $role): static
     {
         $this->roles->removeElement($role);
 
@@ -128,15 +133,27 @@ class User
         return $this;
     }
 
-    public function getPr√enom(): ?string
+    public function getPrenom(): ?string
     {
-        return $this->pr√enom;
+        return $this->prenom;
     }
 
-    public function setPr√enom(string $pr√enom): static
+    public function setPrenom(string $prenom): static
     {
-        $this->pr√enom = $pr√enom;
+        $this->prenom = $prenom;
 
         return $this;
+    }
+
+    public function getPassword(): string
+    {
+        return $this->hash_password;
+    }
+
+    public function eraseCredentials(): void {}
+
+    public function getUserIdentifier(): string
+    {
+        return $this->email;
     }
 }
